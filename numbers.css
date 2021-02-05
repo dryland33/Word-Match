@@ -16,35 +16,17 @@ h1, h2, h3, h4 {
 /* Main content area */
 
 #content {
-  margin: 5% 5%;
+  margin: 0% 0%;
   text-align: center;
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
 }
 
-/* Header/footer boxes */
-
-.wideBox {
-  clear: both;
-  text-align: center;
-  margin: 70px;
-  padding: 10px;
-  background: #ebedf2;
-  border: 1px solid #333;
-}
-
-.wideBox h1 {
-  font-weight: bold;
-  margin: 20px;
-  color: #666;
-  font-size: 1.5em;
-}
-
 /* Slots for final card positions */
 
 #cardSlots {
-  margin: 50px auto 0 auto;
+  margin: 0px auto 0 auto;
   background: #ddf;
 }
 
@@ -58,7 +40,7 @@ h1, h2, h3, h4 {
 #cardSlots, #cardPile {
   width: 100%;
   height: 120px;
-  padding: 1%;
+  padding: 0%;
   border: 2px solid #333;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -72,16 +54,16 @@ h1, h2, h3, h4 {
 
 #cardSlots div, #cardPile div {
   float: left;
-  width: 7%;
+  width: 9%;
   height: 78px;
-  padding: 10px;
+  padding: 0%;
   padding-top: 40px;
   padding-bottom: 0;
   border: 2px solid #333;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  margin: 0 0 0 10px;
+  margin: 0 0 0 0px;
   background: #fff;
 }
 
