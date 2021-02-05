@@ -26,14 +26,14 @@ h1, h2, h3, h4 {
 /* Slots for final card positions */
 
 #cardSlots {
-  margin: 0px auto 0 auto;
+  margin: 0px 0 0 0;
   background: #ddf;
 }
 
 /* The initial pile of unsorted cards */
 
 #cardPile {
-  margin: 0 auto;
+  margin: 0px 0 0 0;
   background: #ffd;
 }
 
@@ -41,7 +41,7 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 120px;
   padding: 0%;
-  border: 2px solid #333;
+  border: 0px solid #333;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -54,12 +54,12 @@ h1, h2, h3, h4 {
 
 #cardSlots div, #cardPile div {
   float: left;
-  width: 9%;
+  width: 10%;
   height: 78px;
   padding: 0%;
-  padding-top: 40px;
+  padding-top: 0px;
   padding-bottom: 0;
-  border: 2px solid #333;
+  border: 0px solid #333;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
