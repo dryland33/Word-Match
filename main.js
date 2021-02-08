@@ -1,138 +1,58 @@
-function _(id) {
-  return document.getElementById(id);
+let correctCards = 0;
+$( init );
+
+function init(){
+
+  // Create the card pile 
+  let numbers = [ 1, 2, 3, 4 ];
+
+  for ( let i=0; i<4; i++ ) {
+    $('<div>' + numbers[i] + '</div>').data( 'number', numbers[i] ).attr( 'id', 'card'+numbers[i] ).appendTo( '#cardPile' ).draggable( {
+      containment: '#content',
+      stack: '#cardPile div',
+      cursor: 'move',
+      revert: true
+    } );
+  }
+
+  // Create the card slots
+  let words = [ 'one', 'two', 'three', 'four' ];
+  for ( let i=1; i<=4; i++ ) {
+    $('<div>' + words[i-1] + '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
+      accept: '#cardPile div',
+      hoverClass: 'hovered',
+      drop: handleCardDrop
+    } );
+  }
+
 }
 
-var droppedIn = false;
-
-window.onload = function () {
-  // Drag zone functionality
-  var dropZone = _('drop_zone');
-
-  dropZone.addEventListener('dragenter', handleDragEnter, false);
-  dropZone.addEventListener('dragleave', handleDragLeave, false);
-  dropZone.addEventListener('drop', handleDragDrop, false);
-
-  function handleDragEnter(e) {
-    _('app_status').innerHTML = 'You are dragging over the ' + e
-      .target
-      .getAttribute('id');
+function handleCardDrop(event, ui) {
+  
+  //Grab the slot number and card number
+  var slotNumber = $(this).data('number');
+  var cardNumber = ui.draggable.data('number');
+    
+  //If the cards was dropped to the correct slot,
+  //position it directly on top of the slot 
+  //and prevent it being dragged again
+  if (slotNumber === cardNumber) {
+    ui.draggable.draggable('disable');
+    $(this).droppable('disable');
+    ui.draggable.position({
+      of: $(this), my: 'left top', at: 'left top'
+    });
+    //This prevents the card from being
+    //pulled back to its initial position
+    //once it has been dropped
+    ui.draggable.draggable('option', 'revert', false);
+    correctCards++; //increment keep track correct cards
   }
-
-  function handleDragLeave(e) {
-    _('app_status').innerHTML = 'You left the ' + e
-      .target
-      .getAttribute('id');
+    
+  //If all the cards have been placed correctly then
+  //display a message 
+  if (correctCards === 4) {
+    $('#cardPile').html('SUCCESS!!!');
   }
-
-  function handleDragDrop(e) {
-    e.preventDefault();
-    var element_id = e
-      .dataTransfer
-      .getData('text');
-    e
-      .target
-      .appendChild(_(element_id));
-    _(element_id).removeAttribute('draggable')
-    _(element_id).style.cursor = 'default';
-    droppedIn = true;
-    _('app_status').innerHTML = 'You droped ' + element_id + ' into drop zone';
-  }
-
-  // Draggable element functionality
-  var object1 = _('object1');
-  var object2 = _('object2');
-  var object3 = _('object3');
-
-  var activeEvent = '';
-  var originalX = '';
-  var originalY = '';
-
-  object1.addEventListener('dragstart', handleDragStart, false);
-  object1.addEventListener('dragend', handleDragEnd, false);
-  object1.addEventListener('touchstart', handleTouchStart, false);
-  object1.addEventListener('touchmove', handleTouchMove, false);
-  object1.addEventListener('touchend', handleTouchEnd, false);
-
-  object2.addEventListener('dragstart', handleDragStart, false);
-  object2.addEventListener('dragend', handleDragEnd, false);
-  object2.addEventListener('touchstart', handleTouchStart, false);
-  object2.addEventListener('touchmove', handleTouchMove, false);
-  object2.addEventListener('touchend', handleTouchEnd, false);
-
-  object3.addEventListener('dragstart', handleDragStart, false);
-  object3.addEventListener('dragend', handleDragEnd, false);
-  object3.addEventListener('touchstart', handleTouchStart, false);
-  object3.addEventListener('touchmove', handleTouchMove, false);
-  object3.addEventListener('touchend', handleTouchEnd, false);
-
-  function handleDragStart(e) {
-    _('app_status').innerHTML = 'Dragging the element ' + e
-      .target
-      .getAttribute('id');
-    e.dataTransfer.dropEffect = 'move';
-    e
-      .dataTransfer
-      .setData('text', e.target.getAttribute('id'));
-  }
-
-  function handleDragEnd(e) {
-    if (droppedIn == false) {
-      _('app_status').innerHTML = 'You let the ' + e
-        .target
-        .getAttribute('id') + ' go.';
-    }
-    droppedIn = false;
-  }
-
-  function handleTouchStart(e) {
-    _('app_status').innerHTML = 'Touch start with element ' + e
-      .target
-      .getAttribute('id');
-    originalX = (e.target.offsetLeft - 10) + 'px';
-    originalY = (e.target.offsetTop - 10) + 'px';
-    activeEvent = 'start';
-  }
-
-  function handleTouchMove(e) {
-    var touchLocation = e.targetTouches[0];
-    var pageX = (touchLocation.pageX - 50) + 'px';
-    var pageY = (touchLocation.pageY - 50) + 'px';
-    _('app_status').innerHTML = 'Touch x ' + pageX + ' Touch y ' + pageY;
-    e.target.style.position = 'absolute';
-    e.target.style.left = pageX;
-    e.target.style.top = pageY;
-    activeEvent = 'move';
-  }
-
-  function handleTouchEnd(e) {
-    e.preventDefault();
-    if (activeEvent === 'move') {
-      var pageX = (parseInt(e.target.style.left) - 50);
-      var pageY = (parseInt(e.target.style.top) - 50);
-
-      if (detectTouchEnd(dropZone.offsetLeft, dropZone.offsetTop, pageX, pageY, dropZone.offsetWidth, dropZone.offsetHeight)) {
-        dropZone.appendChild(e.target);
-        e.target.style.position = 'initial';
-        droppedIn = true;
-        _('app_status').innerHTML = 'You droped ' + e
-          .target
-          .getAttribute('id') + ' into drop zone';
-      } else {
-        e.target.style.left = originalX;
-        e.target.style.top = originalY;
-        _('app_status').innerHTML = 'You let the ' + e
-          .target
-          .getAttribute('id') + ' go.';
-      }
-    }
-  }
-
-  function detectTouchEnd(x1, y1, x2, y2, w, h) {
-    //Very simple detection here
-    if (x2 - x1 > w) 
-      return false;
-    if (y2 - y1 > h) 
-      return false;
-    return true;
-  }
+     
 }
