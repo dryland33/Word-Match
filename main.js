@@ -3,11 +3,11 @@ $( init );
 
 function init(){
 
-  // Create the card pile 
-  let numbers = [ 1, 2, 3, 4 ];
-
+  // Create the card pile
+  let pictures = [ '<img src="images/bat.jfif" />', '<img src="images/bit.png" />', '<img src="images/bot.jpg" />', '<img src="images/butt.gif" />' ]; 
+  
   for ( let i=0; i<4; i++ ) {
-    $('<div>' + numbers[i] + '</div>').data( 'number', numbers[i] ).attr( 'id', 'card'+numbers[i] ).appendTo( '#cardPile' ).draggable( {
+    $('<div>' + pictures[i] + '</div>').data( 'number', i ).attr( 'id', 'card'+i ).appendTo( '#cardPile' ).draggable( {
       containment: '#content',
       stack: '#cardPile div',
       cursor: 'move',
@@ -16,9 +16,10 @@ function init(){
   }
 
   // Create the card slots
-  let words = [ 'one', 'two', 'three', 'four' ];
-  for ( let i=1; i<=4; i++ ) {
-    $('<div>' + words[i-1] + '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
+  let words = [ 'bat', 'bit', 'bot', 'butt' ];
+  
+  for ( let i=0; i<4; i++ ) {
+    $('<div>' + words[i] + '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
       accept: '#cardPile div',
       hoverClass: 'hovered',
       drop: handleCardDrop
