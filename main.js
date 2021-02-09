@@ -53,7 +53,7 @@ function handleCardDrop(event, ui) {
   //If all the cards have been placed correctly then
   //display a message 
   if (correctCards === 4) {
-    $('#cardPile').html('SUCCESS!!!');
+    $('#cardPile').html('<div style="text-align: center; color: blue;">GOOD JOB!!!</div>');
   }
      
 }
