@@ -4,10 +4,22 @@ $( init );
 function init(){
 
   // Create the card pile
-  let pictures = [ '<img src="images/bat.png" />', '<img src="images/bit.png" />', '<img src="images/bot.jpg" />', '<img src="images/butt.gif" />' ]; 
+  let pictures = [ 
+    {'pic': '<img src="images/bat.png" />', 'num': 0}, 
+    {'pic': '<img src="images/bit.png" />', 'num': 1}, 
+    {'pic': '<img src="images/bot.jpg" />', 'num': 2}, 
+    {'pic': '<img src="images/butt.gif"/>', 'num': 3} ]; 
   
+  // Randomize pictures   
+  for(let i = pictures.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * i);
+    const temp = pictures[i];
+    pictures[i] = pictures[j];
+    pictures[j] = temp;
+  }
+
   for ( let i=0; i<4; i++ ) {
-    $('<div>' + pictures[i] + '</div>').data( 'number', i ).attr( 'id', 'card'+i ).appendTo( '#cardPile' ).draggable( {
+    $('<div>' + pictures[i].pic + '</div>').data( 'number', pictures[i].num ).attr( 'id', 'card'+i ).appendTo( '#cardPile' ).draggable( {
       containment: '#content',
       stack: '#cardPile div',
       cursor: 'move',
