@@ -4,7 +4,7 @@ $( init );
 function init(){
 
   // Create the card pile
-  let pictures = [ '<img src="images/bat.jfif" />', '<img src="images/bit.png" />', '<img src="images/bot.jpg" />', '<img src="images/butt.gif" />' ]; 
+  let pictures = [ '<img src="images/bat.png" />', '<img src="images/bit.png" />', '<img src="images/bot.jpg" />', '<img src="images/butt.gif" />' ]; 
   
   for ( let i=0; i<4; i++ ) {
     $('<div>' + pictures[i] + '</div>').data( 'number', i ).attr( 'id', 'card'+i ).appendTo( '#cardPile' ).draggable( {
