@@ -16,7 +16,7 @@ function init(){
   }
 
   // Create the card slots
-  let words = [ 'bat', 'bit', 'bot', 'butt' ];
+  let words = [ 'bat', 'bits', 'bot', 'butt' ];
   
   for ( let i=0; i<4; i++ ) {
     $('<div>' + words[i] + '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
